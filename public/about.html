@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About Us – Punarjanm</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    
+    <a href="index.html"><img src="logo.png" alt="Punarjanm Logo" class="logo" /></a>
+    <a href="about.html" class="button">About Us</a>
+    <h1>About Punarjanm</h1>
+  </header>
+
+  <main>
+    <section class="about">
+      <h2>Our Mission</h2>
+      <p>Punarjanm is a movement to transform waste into opportunity. We work with artisans, laborers, and students to create sustainable products from discarded materials—giving new life to both resources and communities.</p>
+
+      <h2>Our Story</h2>
+      <p>Founded in Hyderabad, Punarjanm began as a college initiative to address local waste and unemployment. Today, it’s a growing platform for eco-conscious innovation and social impact.</p>
+
+      <h2>Our Values</h2>
+      <!-- Inside <body> of about.html -->
+     <section class="team">
+     <h2>Meet Our Team</h2>
+     <button onclick="document.getElementById('team-info').style.display='block'">Show Team Info</button>
+
+     <div id="team-info" style="display:none; margin-top: 20px;">
+     <p>We work with artisans and volunteers from Kukatpally, Malkajgiri, and Jagathgirigutta to create sustainable products and awareness campaigns.</p>
+     </div>
+     </section>
+     <section class="about">
+     <h2>Our Mission</h2>
+     <p>Punarjanm transforms waste into opportunity, dignity, and sustainable products—empowering communities and protecting the planet.</p>
+
+     <h2>Meet Our Artisan</h2>
+     <img src="images/artisan1.jpg" alt="Artisan at work" onclick="document.getElementById('artisan-info').style.display='block'" style="cursor:pointer; width:100%; max-width:400px; border-radius:10px;" />
+
+     <div id="artisan-info" style="display:none; margin-top:20px; background:#f0f0f0; padding:15px; border-radius:10px;">
+     <p>This artisan from Kukatpally transforms discarded cloth into beautiful bags and decor. Their work inspires our community to see value in what was once waste.</p>
+     </div>
+    </section>
+
+      <ul>
+        <li>🌱 Sustainability</li>
+        <li>🤝 Community Empowerment</li>
+        <li>🎨 Creativity & Craftsmanship</li>
+        <li>📚 Education & Awareness</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Punarjanm Project | Made with ❤️ in Hyderabad</p>
+  </footer>
+</body>
+</html>

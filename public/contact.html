@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Us – Punarjanm</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #e0f7ec;
+      padding: 2rem;
+      color: #2c3e50;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    form {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #219150;
+    }
+    .success {
+      text-align: center;
+      color: green;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contact Us</h1>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="message" rows="5" placeholder="Your Message or Story" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+  <div class="success" id="successMessage"></div>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch('/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+          form.reset();
+          successMessage.textContent = 'Thank you! Your message has been received.';
+        } else {
+          successMessage.textContent = 'Something went wrong. Please try again.';
+        }
+      } catch (err) {
+        successMessage.textContent = 'Error sending message.';
+      }
+    });
+  </script>
+</body>
+</html>

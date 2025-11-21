@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waste to Sustainability | Punarjanm</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Punarjanm Logo" class="logo" />
+    <h1>Punarjanm</h1>
+    <p class="tagline">Rebirth Through Waste – Empowering Communities</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="how.html">How it Works</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="solutions.html" class="active">Solutions</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h2>Waste to Sustainability Development Solutions</h2>
+      <p>
+        At Punarjanm, we believe that every discarded item holds the potential for transformation. Our solutions bridge the gap between waste and opportunity, turning what’s thrown away into tools for empowerment.
+      </p>
+    </section>
+
+    <!-- 🔘 Section Toggle Buttons -->
+    <div class="nav-buttons" style="text-align:center; margin-bottom:2rem;">
+      <button onclick="showSection('policies')">📜 Policies</button>
+      <button onclick="showSection('timeline')">📅 Timeline</button>
+      <button onclick="showSection('telangana')">🌱 Telangana Programs</button>
+    </div>
+
+    <!-- 📜 Policies Section -->
+    <section id="policies" class="section hidden">
+      <h2>Policies Driving Sustainability</h2>
+      <p>
+        India’s journey from waste to sustainability is guided by progressive policies and private sector innovation. These frameworks empower communities, regulate industries, and promote circular economies.
+      </p>
+      <div class="policy-grid">
+        <div class="policy-card">
+          <h3>Solid Waste Management Rules (2016)</h3>
+          <p>Mandates source segregation, door-to-door collection, and decentralized processing of waste.</p>
+        </div>
+        <div class="policy-card">
+          <h3>Plastic Waste Management Rules</h3>
+          <p>Regulates plastic production and disposal. Enforces Extended Producer Responsibility (EPR).</p>
+        </div>
+        <div class="policy-card">
+          <h3>E-Waste Management Rules</h3>
+          <p>Targets electronic waste through collection goals and authorized recyclers.</p>
+        </div>
+        <div class="policy-card">
+          <h3>National Environment Policy</h3>
+          <p>Provides a framework for sustainable development through stakeholder engagement.</p>
+        </div>
+        <div class="policy-card">
+          <h3>Private Sector Initiatives</h3>
+          <p>Companies like ITC, Tata, and Reliance invest in recycling, upcycling, and zero-waste campuses.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📅 Timeline Section -->
+    <section id="timeline" class="section hidden timeline-section">
+      <h2>Policy Timeline: India’s Waste Management Journey</h2>
+      <ul class="timeline">
+        <li><strong>2000:</strong> Municipal Solid Waste Rules introduced.</li>
+        <li><strong>2011:</strong> E-Waste Management Rules established.</li>
+        <li><strong>2016:</strong> Solid & Plastic Waste Management Rules updated with EPR.</li>
+        <li><strong>2022:</strong> Revised E-Waste Rules with stricter targets.</li>
+        <li><strong>2025:</strong> Circular economy integrated into Smart City planning.</li>
+      </ul>
+    </section>
+
+    <!-- 🌱 Telangana Programs Section -->
+    <section id="telangana" class="section hidden telangana-programs">
+      <h2>Active Sustainability Programs in Telangana</h2>
+      <p>
+        Telangana is leading with innovative programs that blend ecology, community, and technology.
+      </p>
+      <div class="program-grid">
+        <div class="program-card">
+          <h3>🌳 Telanganaku Haritha Haram</h3>
+          <p>Afforestation drive with 109 Urban Forest Parks. <a href="https://forests.telangana.gov.in/UrbanParks.aspx" target="_blank">View Parks</a></p>
+        </div>
+        <div class="program-card">
+          <h3>🤝 T-Social Impact Group</h3>
+          <p>CSR platform connecting corporates with community needs. <a href="https://thecsrjournal.in/top-csr-telangana-corporate-social-responsibility/" target="_blank">Explore CSR Projects</a></p>
+        </div>
+        <div class="program-card">
+          <h3>🏙️ Smart City Initiatives</h3>
+          <p>Green infrastructure and waste segregation in Hyderabad and Warangal.</p>
+        </div>
+        <div class="program-card">
+          <h3>🏥 Apollo’s Total Health</h3>
+          <p>Improving sanitation and maternal care through CSR in rural Telangana.</p>
+        </div>
+      </div>
+      <div class="map-embed">
+        <iframe src="https://www.niti.gov.in/sites/default/files/2019-01/Telangana.pdf" width="100%" height="500px" title="Telangana SDG Map"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2023 Punarjanm Project | Made with 💚 in Hyderabad</p>
+    <button class="thanks-button">Say Thanks</button>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

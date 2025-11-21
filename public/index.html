@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Punarjanm – Waste to Worth</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fdf4;
+      margin: 0;
+      padding: 2rem;
+      color: #2c3e50;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #27ae60;
+    }
+
+    button {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 0.5rem;
+    }
+
+    button:hover {
+      background: #219150;
+    }
+
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      min-width: 180px;
+      text-align: center;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #34495e;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #27ae60;
+      margin: 0.5rem 0 0;
+    }
+
+    .logs {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .log {
+      background: #e6f9ed;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .log h4 {
+      margin: 0;
+      font-size: 1rem;
+      color: #2c3e50;
+    }
+
+    .log p {
+      margin: 0.25rem 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    #wasteFormContainer form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #wasteFormContainer input,
+    #wasteFormContainer select {
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    #wasteFormContainer button {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #wasteFormContainer button:hover {
+      background: #219150;
+    }
+
+    .wall {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding-top: 1rem;
+    }
+
+    .testimonial {
+      background: #ffffff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .testimonial:hover {
+      transform: scale(1.02);
+    }
+
+    .testimonial h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+      color: #34495e;
+    }
+
+    .testimonial p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      color: #555;
+    }
+
+    .testimonial small {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌱 Punarjanm – Waste to Worth</h1>
+
+  <div style="text-align:center; margin-bottom:2rem;">
+    <button onclick="showSection('dashboard')">📊 Material Recovery Dashboard</button>
+    <button onclick="showSection('testimonials')">💬 Community Testimonials</button>
+  </div>
+
+  <!-- Dashboard Section -->
+  <section id="dashboard" style="display:none;">
+    <h2>Material Recovery Dashboard</h2>
+    <div class="summary" id="summary"></div>
+    <div class="logs" id="logs"></div>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <button onclick="toggleWasteForm()">➕ Submit Waste</button>
+    </div>
+
+    <div id="wasteFormContainer" style="display:none; margin-top:2rem;">
+      <form id="logForm">
+        <select name="type" required>
+          <option value="">Select Waste Type</option>
+          <option value="Plastic">Plastic</option>
+          <option value="Organic">Organic</option>
+          <option value="E-waste">E-waste</option>
+          <option value="Textile">Textile</option>
+        </select>
+        <input type="number" name="weightKg" placeholder="Weight (kg)" required />
+        <input type="text" name="source" placeholder="Source (e.g. Kukatpally Market)" />
+        <input type="text" name="transformedInto" placeholder="Transformed Into (e.g. Eco-bricks)" />
+        <button type="submit">Submit</button>
+        <div id="logSuccess" style="margin-top:1rem;"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" style="display:none;">
+  <h2>Community Testimonials</h2>
+  <div class="wall" id="wall"></div>
+  <div class="empty" id="emptyMessage" style="text-align:center; color:#999; margin-top:1rem;">Loading testimonials...</div>
+</section>
+
+  <script>
+    function showSection(id) {
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('testimonials').style.display = 'none';
+      document.getElementById(id).style.display = 'block';
+
+      if (id === 'dashboard') loadDashboard();
+      if (id === 'testimonials') loadTestimonials();
+    }
+
+    function toggleWasteForm() {
+      const formContainer = document.getElementById('wasteFormContainer');
+      const toggleButton = document.querySelector('[onclick="toggleWasteForm()"]');
+
+      if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+        formContainer.style.display = 'block';
+        toggleButton.textContent = '❌ Hide Form';
+        formContainer.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        formContainer.style.display = 'none';
+        toggleButton.textContent = '➕ Submit Waste';
+      }
+    }
+
+    const logForm = document.getElementById('logForm');
+    const logSuccess = document.getElementById('logSuccess');
+
+    logForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = logForm.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
+      const formData = new FormData(logForm);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch('/waste', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+          logForm.reset();
+          logSuccess.textContent = '✅ Waste log submitted successfully!';
+          logSuccess.style.color = 'green';
+          loadDashboard();
+        } else {
+          logSuccess.textContent = '❌ Submission failed. Please try again.';
+          logSuccess.style.color = 'red';
+        }
+      } catch (err) {
+        console.error('Log error:', err);
+        logSuccess.textContent = '❌ Network error. Please check your connection.';
+        logSuccess.style.color = 'red';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+        logSuccess.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    function loadDashboard() {
+      fetch('/waste')
+        .then(res => res.json())
+        .then(data => {
+          const summary = {};
+          data.forEach(log => {
+            summary[log.type] = (summary[log.type] || 0) + log.weightKg;
+          });
+
+          const summaryDiv = document.getElementById('summary');
+          summaryDiv.innerHTML = Object.entries(summary).map(([type, total]) => `
+            <div class="card">
+              <h3>${type}</h3>
+              <p>${total.toFixed(2)} kg</p>
+            </div>
+          `).join('');
+
+          const logsDiv = document.getElementById('logs');
+          logsDiv.innerHTML = data.map(log => `
+            <div class="log">
+              <h4>${log.type} – ${log.weightKg} kg</h4>
+              <p><strong>Source:</strong> ${log.source || 'Unknown'}</p>
+              <p><strong>Transformed Into:</strong> ${log.transformedInto || 'N/A'}</p>
+              <p><small>${new Date(log.date).toLocaleDateString()}</small></p>
+            </div>
+          `).join('');
+        });
+    }
+
+    function loadTestimonials() {
+      fetch('/contact/testimonials')
+        .then(res => res.json())
+        .then(data => {
+          const wall = document.getElementById('wall');
+          const emptyMessage = document.getElementById('emptyMessage');
+
+          if (data.length === 0) {
+            emptyMessage.textContent = 'No testimonials yet. Be the first to share your story!';
+            return;
+          }
+
+          emptyMessage.style.display = 'none';
+          wall.innerHTML = data.map(msg => `
+            <div class="testimonial">
+              <h3>${msg.name}</h3>
+              <p>${msg.message}</p>
+              <small>${new Date(msg.createdAt).toLocaleDateString()}</small>
+            </div>
+          `).join('');
+        })
+        .catch(err => {
+          console.error('Error loading testimonials:', err);
+          document.getElementById('emptyMessage').textContent = 'Unable to load testimonials.';
+        });
+    }
+  </script>
+</body>
+  

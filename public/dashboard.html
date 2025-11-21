@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Material Recovery Dashboard – Punarjanm</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fdf4;
+      padding: 2rem;
+      color: #2c3e50;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #27ae60;
+    }
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      min-width: 180px;
+      text-align: center;
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #34495e;
+    }
+    .card p {
+      font-size: 1rem;
+      color: #27ae60;
+      margin: 0.5rem 0 0;
+    }
+    .logs {
+      max-width: 800px;
+      margin: auto;
+    }
+    .log {
+      background: #e6f9ed;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .log h4 {
+      margin: 0;
+      font-size: 1rem;
+      color: #2c3e50;
+    }
+    .log p {
+      margin: 0.25rem 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Material Recovery Dashboard</h1>
+  <div class="summary" id="summary"></div>
+  <div class="logs" id="logs"></div>
+
+  <script>
+    fetch('/waste')
+      .then(res => res.json())
+      .then(data => {
+        const summary = {};
+        data.forEach(log => {
+          summary[log.type] = (summary[log.type] || 0) + log.weightKg;
+        });
+
+        const summaryDiv = document.getElementById('summary');
+        summaryDiv.innerHTML = Object.entries(summary).map(([type, total]) => `
+          <div class="card">
+            <h3>${type}</h3>
+            <p>${total.toFixed(2)} kg</p>
+          </div>
+        `).join('');
+
+        const logsDiv = document.getElementById('logs');
+        logsDiv.innerHTML = data.map(log => `
+          <div class="log">
+            <h4>${log.type} – ${log.weightKg} kg</h4>
+            <p><strong>Source:</strong> ${log.source || 'Unknown'}</p>
+            <p><strong>Transformed Into:</strong> ${log.transformedInto || 'N/A'}</p>
+            <p><small>${new Date(log.date).toLocaleDateString()}</small></p>
+          </div>
+        `).join('');
+      });
+  </script>
+</body>
+</html>
